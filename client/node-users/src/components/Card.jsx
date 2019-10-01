@@ -21,24 +21,27 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const classes = useStyles();
-
+  console.log(props)
   return (
     <Card className={classes.card}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.user.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            {props.user.bio}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button 
+        size="small" 
+        color="primary"
+        onClick= {() => props.deleteUser(props.user.id)}
+        >
           Delete
         </Button>
         <Button size="small" color="primary">
