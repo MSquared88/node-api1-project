@@ -2,12 +2,16 @@
 
 const express = require('express');
 
+const cors = require('cors')
+
 const dataBase = require('./data/db')
 
 
-const server = express()
+const server = express();
 
 server.use(express.json());
+
+server.use(cors());
 
 server.get('/api/users',(req, res) => {
     dataBase.find()
@@ -16,7 +20,7 @@ server.get('/api/users',(req, res) => {
         res.json(users)
     })
     .catch(err => res.status(500).json({error: "The users information could not be retrieved."}))
-})
+});
 
 server.get('/api/users/:id', (req, res) => {
     
@@ -33,7 +37,7 @@ server.get('/api/users/:id', (req, res) => {
         })
         
         .catch(err => res.status(500).json({error: "The users information could not be retrieved."}))
-})
+});
 
 server.post('/api/users', (req, res) => {
     
@@ -51,7 +55,7 @@ server.post('/api/users', (req, res) => {
     
         .catch(err => res.status(500).json({error: "There was an error while saving the user to the database"}))
     }
-})
+});
 
 server.put('/api/users/:id', (req, res) => {
     const id = req.params.id
@@ -72,7 +76,7 @@ server.put('/api/users/:id', (req, res) => {
 
         .catch(err => res.status(500).json({error: "The user information could not be modified."}))
     }
-})
+});
 
 
 server.delete('/api/users/:id', (req, res) => {
@@ -87,8 +91,8 @@ server.delete('/api/users/:id', (req, res) => {
         else res.json(user)
     })
     .catch(err => res.status(500).json({error: "The user could not be removed"}))
-})
+});
 
-const port = '5000'
+const port = '5000';
 
-server.listen(port, () => console.log(`\nServer listening on port ${port}\n`))
+server.listen(port, () => console.log(`\nServer is listening on port ${port}\n`));
